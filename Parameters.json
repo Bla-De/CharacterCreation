@@ -1,0 +1,18 @@
+{
+  "SkinMin": 1,
+  "SkinMax": 24,
+  "HairMin": 1,
+  "HairMax": 74,
+  "ShirtMin": 1,
+  "ShirtMax": 112,
+  "PantsMin": 1,
+  "PantsMax": 4,
+  "AccessoryMin": 1,
+  "AccessoryMax": 20,
+
+  "HSLMin": 0,
+  "HSLMax": 99,
+
+  "AnimalMin": 1,
+  "AnimalMax": 6
+}

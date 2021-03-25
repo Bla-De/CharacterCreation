@@ -1,0 +1,12 @@
+{
+  "Name": "BlaDe",
+  "FarmType": 3,
+  "FarmName": "Marriage",
+  "FavouriteThing": "Manipulation",
+  "HorizontalResolution": 1920,
+  "VerticalResolution": 1080,
+  "AutoHotkeyPath": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\AutoHotkey",
+  "WorkingDirectory": "C:\\Temp\\",
+  "MouseDelay": 25
+
+}
