@@ -10,3 +10,7 @@ e.g.
 2,30,61,1,1,78,67,45,57,84,44,64,66,42
 
 Assumes Stardew is open and on the New Character screen
+
+Change settings in RunnerSettings.json to customise it for you.
+Resolution settings currently not implented - assumes 1920x1080.
+AuthoHotkeyPath currently not used - assumes .ahk is associated with autohotkey.
