@@ -4,8 +4,11 @@ import json
 with open('RunnerSettings.json','r') as f:
     runnerSettings = json.load(f)
 
+xOffset = int(runnerSettings["HorizontalResolution"]) // 2 - 356
+yOffset = int(runnerSettings["VerticalResolution"]) // 2 - 300
+
 def Move(x,y):
-    return "MouseMove " + str(x) + ", " + str(y) + "\n"
+    return "MouseMove " + str(x + xOffset) + ", " + str(y + yOffset) + "\n"
 
 def Click():
     return "Click\n"
@@ -39,7 +42,7 @@ def Setup():
     if mouseDelay != None:
         script = "SetMouseDelay " + str(mouseDelay) + "\n"
 
-    script += "SetTitleMatchMode, RegEx\nWinActivate, i)^Stardew Valley$\n"
+    script += "SetTitleMatchMode, RegEx\nWinActivate, ^Stardew Valley$\n"
     return script
 
 def Run(script):

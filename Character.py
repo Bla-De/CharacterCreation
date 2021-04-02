@@ -103,10 +103,10 @@ class Character():
         script = ""
 
         if self.animal > 1:
-            script += sm.MoveAndClick(1190,455,self.animal-1)
+            script += sm.MoveAndClick(586,215,self.animal-1)
 
         if self.skin > 1:
-            script += sm.MoveAndClick(840,530,self.skin-1)
+            script += sm.MoveAndClick(236,290,self.skin-1)
 
         workingHair = self.hair
         if female:
@@ -114,22 +114,22 @@ class Character():
             workingHair = workingHair % 74 + 1
 
         if workingHair > 1:
-            script += sm.MoveAndClick(840,600,workingHair-1)
+            script += sm.MoveAndClick(236,360,workingHair-1)
 
         if self.shirt > 1:
-            script += sm.MoveAndClick(840,670,self.shirt-1)
+            script += sm.MoveAndClick(236,430,self.shirt-1)
 
         if self.pants > 1:
-            script += sm.MoveAndClick(840,740,self.pants-1)
+            script += sm.MoveAndClick(236,500,self.pants-1)
 
         if self.acc > 1:
-            script += sm.MoveAndClick(840,810,self.acc-1)
+            script += sm.MoveAndClick(236,570,self.acc-1)
 
-        colourLeft = 1029
+        colourLeft = 425
 
-        script += sm.ColourClick(colourLeft,514,self.eyeH) + sm.ColourClick(colourLeft,534,self.eyeS) + sm.ColourClick(colourLeft,554,self.eyeL)
-        script += sm.ColourClick(colourLeft,582,self.hairH) + sm.ColourClick(colourLeft,602,self.hairS) + sm.ColourClick(colourLeft,622,self.hairL)
-        script += sm.ColourClick(colourLeft,650,self.pantsH) + sm.ColourClick(colourLeft,670,self.pantsS) + sm.ColourClick(colourLeft,690,self.pantsL)
+        script += sm.ColourClick(colourLeft,274,self.eyeH) + sm.ColourClick(colourLeft,294,self.eyeS) + sm.ColourClick(colourLeft,314,self.eyeL)
+        script += sm.ColourClick(colourLeft,342,self.hairH) + sm.ColourClick(colourLeft,362,self.hairS) + sm.ColourClick(colourLeft,382,self.hairL)
+        script += sm.ColourClick(colourLeft,412,self.pantsH) + sm.ColourClick(colourLeft,432,self.pantsS) + sm.ColourClick(colourLeft,452,self.pantsL)
 
         return script
 
