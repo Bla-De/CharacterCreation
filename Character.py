@@ -38,7 +38,7 @@ class Character():
 
 
     def __init__(self,text):
-        self.skin = 1;
+        self.skin = 1
         self.hair = 1
         self.shirt = 1
         self.pants = 1
@@ -132,6 +132,9 @@ class Character():
         script += sm.ColourClick(colourLeft,412,self.pantsH) + sm.ColourClick(colourLeft,432,self.pantsS) + sm.ColourClick(colourLeft,452,self.pantsL)
 
         return script
+
+    def __str__(self):
+        return f'{self.skin} {self.hair} {self.shirt} {self.pants} {self.acc}'
 
 if __name__ == '__main__':
 
