@@ -6,6 +6,7 @@ from Runner import Runner
 import ScriptMaker as sm
 from Entry import Entry
 from Reward import Reward
+import TwitchEventHandler
 
 runner = Runner()
 runner.playAsFemale = True
@@ -102,7 +103,15 @@ if __name__ == '__main__':
         print(script)
 
  
+    def displayEntry(event):
+        selection = listbox.curselection()
+        if selection == ():
+            return
 
+        entry = entries[selection[0]]
+
+        charVar.set(str(entry.character))
+        favouriteVar.set(entry.reward.user)
 
 
     button = tk.Button(window, text = "Generate", command = generate)
@@ -114,12 +123,13 @@ if __name__ == '__main__':
     
     currentRow += 1
 
-    #listbox = tk.Listbox(window)
-    #listbox.grid(column=2, row = 0, rowspan=10)
+    listbox = tk.Listbox(window)
+    listbox.grid(column=2, row = 0, rowspan=10)
+    listbox.bind("<<ListboxSelect>>", displayEntry)
 
-    #entries = getSampleEntries()
+    entries = getSampleEntries()
 
-    #for entry in entries:
-    #    listbox.insert(tk.END,entry)
+    for entry in entries:
+        listbox.insert(tk.END,entry)
 
     window.mainloop()

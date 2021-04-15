@@ -134,7 +134,7 @@ class Character():
         return script
 
     def __str__(self):
-        return f'{self.skin} {self.hair} {self.shirt} {self.pants} {self.acc}'
+        return f'{self.skin}, {self.hair}, {self.shirt}, {self.pants}, {self.acc}, {self.eyeH}, {self.eyeS}, {self.eyeL}, {self.hairH}, {self.hairS}, {self.hairL}, {self.pantsH}, {self.pantsS}, {self.pantsL}, {self.animal}'
 
 if __name__ == '__main__':
 
