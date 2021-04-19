@@ -6,7 +6,7 @@ from Runner import Runner
 import ScriptMaker as sm
 from Entry import Entry
 from Reward import Reward
-import TwitchEventHandler
+#import TwitchEventHandler
 
 runner = Runner()
 runner.playAsFemale = True
