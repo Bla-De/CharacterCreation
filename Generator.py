@@ -3,7 +3,7 @@ from Character import Character
 import ScriptMaker as sm
 
 def Build(runner,character):
-    script = sm.Setup() + runner.makeScript() + character.makeScript()
+    script = sm.Setup() + runner.makeScript() + character.makeScript(runner.playAsFemale) + sm.Epilog()
     return script
 
 if __name__ == '__main__':

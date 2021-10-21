@@ -4,6 +4,8 @@ import ScriptMaker as sm
 class Character():
         
     def populate(self,text):
+        if text == "":
+            return
         row = text.split(',')
         if len(row) >= 1:
             self.skin = int(row[0])

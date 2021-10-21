@@ -7,6 +7,8 @@
   "VerticalResolution": 1080,
   "AutoHotkeyPath": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\AutoHotkey",
   "WorkingDirectory": "C:\\Temp\\",
-  "MouseDelay": 25
+  "MouseDelay": 25,
+  "PlayAsFemale": false,
+  "SkipIntro": true
 
 }

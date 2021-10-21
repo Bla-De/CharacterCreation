@@ -7,11 +7,14 @@ with open('RunnerSettings.json','r') as f:
 xOffset = int(runnerSettings["HorizontalResolution"]) // 2 - 356
 yOffset = int(runnerSettings["VerticalResolution"]) // 2 - 300
 
+def Extra():
+    return "Sleep 1\n"
+
 def Move(x,y):
     return "MouseMove " + str(x + xOffset) + ", " + str(y + yOffset) + "\n"
 
 def Click():
-    return "Click\n"
+    return "Click\n" + Extra()
 
 def MoveAndClick(x,y,amount=1):
     script = Move(x,y)
@@ -43,6 +46,10 @@ def Setup():
         script = "SetMouseDelay " + str(mouseDelay) + "\n"
 
     script += "SetTitleMatchMode, RegEx\nWinActivate, ^Stardew Valley$\n"
+    return script
+
+def Epilog():
+    script = "Esc::ExitApp"
     return script
 
 def Run(script):

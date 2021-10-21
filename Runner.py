@@ -11,8 +11,8 @@ class Runner():
         self.farmName = runnerSettings["FarmName"]
         self.favouriteThing = runnerSettings["FavouriteThing"]
         self.farm = runnerSettings["FarmType"]
-        self.playAsFemale = True
-        self.skipIntro = True
+        self.playAsFemale = runnerSettings["PlayAsFemale"]
+        self.skipIntro = runnerSettings["SkipIntro"]
 
     def makeScript(self):
         script = ""
