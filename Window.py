@@ -6,7 +6,7 @@ from Runner import Runner
 import ScriptMaker as sm
 from Entry import Entry
 from Reward import Reward
-import TwitchEventHandler
+#import TwitchEventHandler
 import threading
 import json
 
@@ -137,10 +137,10 @@ if __name__ == '__main__':
         charVar.set(str(entry.character))
         favouriteVar.set(entry.reward.user)
 
-    def connect():
-        TwitchEventHandler.userAuthentication(twitchVar.get())
-        if TwitchEventHandler.isSetup():
-            twitchStatus.configure(text = "Connected")
+    #def connect():
+    #    TwitchEventHandler.userAuthentication(twitchVar.get())
+    #    if TwitchEventHandler.isSetup():
+    #        twitchStatus.configure(text = "Connected")
 
 
     button = tk.Button(window, text = "Generate", command = generate)
@@ -155,8 +155,8 @@ if __name__ == '__main__':
     twitchToken = tk.Entry(window, textvariable = twitchVar)
     twitchToken.grid(column = 2, row = 0)
 
-    twitchButton = tk.Button(window, text = "Twitch Connect", command = connect)
-    twitchButton.grid(column=2, row = 1)
+    #twitchButton = tk.Button(window, text = "Twitch Connect", command = connect)
+    #twitchButton.grid(column=2, row = 1)
 
     twitchStatus = tk.Label(window, text = "Disconnected")
     twitchStatus.grid(column = 2, row = 2)
