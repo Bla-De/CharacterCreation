@@ -103,12 +103,21 @@ class Character():
     def makeScript(self,female = True):
         #Assumes validation has passed
         script = ""
+        
+        leftArrow = 106
+        rightArrow = 236
 
         if self.animal > 1:
             script += sm.MoveAndClick(586,215,self.animal-1)
 
         if self.skin > 1:
-            script += sm.MoveAndClick(236,290,self.skin-1)
+            if self.skin > (24 / 2): 
+                arrow = leftArrow
+                clicks = 24 - self.skin + 1
+            else:
+                arrow = rightArrow
+                clicks = self.skin - 1
+            script += sm.MoveAndClick(arrow,290,clicks)
 
         workingHair = self.hair
         if female:
@@ -116,16 +125,40 @@ class Character():
             workingHair = workingHair % 74 + 1
 
         if workingHair > 1:
-            script += sm.MoveAndClick(236,360,workingHair-1)
+            if workingHair > (74 + female*17) / 2 or self.hair < female*17: 
+                arrow = leftArrow
+                clicks = 74 - workingHair + 1
+            else:
+                arrow = rightArrow
+                clicks = workingHair - 1
+            script += sm.MoveAndClick(arrow,360,clicks)
 
         if self.shirt > 1:
-            script += sm.MoveAndClick(236,430,self.shirt-1)
+            if self.shirt > (112 / 2):
+                arrow = leftArrow
+                clicks = 112 - self.shirt + 1
+            else:
+                arrow = rightArrow
+                clicks = self.shirt - 1
+            script += sm.MoveAndClick(arrow,430,clicks)
 
         if self.pants > 1:
-            script += sm.MoveAndClick(236,500,self.pants-1)
+            if self.pants > (4 / 2): 
+                arrow = leftArrow
+                clicks = 4 - self.pants + 1
+            else: 
+                arrow = rightArrow
+                clicks = self.pants - 1
+            script += sm.MoveAndClick(arrow,500,clicks)
 
         if self.acc > 1:
-            script += sm.MoveAndClick(236,570,self.acc-1)
+            if self.acc > (20 / 2):
+                arrow = leftArrow
+                clicks = 20 - self.acc + 1
+            else: 
+                arrow = rightArrow 
+                clicks = self.acc - 1
+            script += sm.MoveAndClick(arrow,570,clicks)
 
         colourLeft = 425
 
