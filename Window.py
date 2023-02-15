@@ -35,20 +35,25 @@ def getSampleEntries():
 
     return sampleEntries
 
-def setupRow(window,labelName,var,row,checkBox=False):
+def setupRow(window,labelName,var,row, labelColumn = 0, checkBox=False, dropdown = False):
 
-    labelColumn = 0
     entryColumn = labelColumn + 1
 
     label = tk.Label(window, text = labelName)
-    label.grid(column = labelColumn, row = row)
+    label.grid(column = labelColumn, row = row, sticky = "W")
 
     if checkBox:
-        entry = tk.Checkbutton(window,width=20,variable=var)
+        entry = tk.Checkbutton(window,variable=var)
         entry.grid(column=entryColumn,row=row)
+    elif dropdown == "farmTypes":
+        entry = tk.OptionMenu(window, var, *runner.farmTypeList)
+        entry.grid(column = entryColumn, row = row, columnspan = 4, sticky = "EW")
+    elif dropdown == "numberCabins":
+        entry = tk.OptionMenu(window, var, *runner.numberCabins)
+        entry.grid(column = entryColumn, row = row)
     else:
-        entry = tk.Entry(window, width = 20, textvariable = var)
-        entry.grid(column=entryColumn,row=row)
+        entry = tk.Entry(window, textvariable = var)
+        entry.grid(column=entryColumn,row=row, columnspan = 4, sticky = "EW")
 
     return label,entry
 
@@ -64,15 +69,28 @@ if __name__ == '__main__':
     nameVar = tk.StringVar()
     farmVar = tk.StringVar()
     favouriteVar = tk.StringVar()
-    farmTypeVar = tk.IntVar()
+    farmTypeVar = tk.StringVar()
     twitchVar = tk.StringVar()
     genderVar = tk.BooleanVar()
+    ccVar = tk.BooleanVar()
+    minesVar = tk.BooleanVar()
+    cabinsVar = tk.StringVar()
+    layoutVar = tk.BooleanVar()
+    seedVar = tk.StringVar()
 
     nameVar.set(runner.name)
     farmVar.set(runner.farmName)
     favouriteVar.set(runner.favouriteThing)
-    farmTypeVar.set(runner.farm)
+    if isinstance(runner.farm,int): 
+        farmTypeVar.set(runner.farmTypeList[runner.farm - 1])
+    else: 
+        farmTypeVar.set(runner.farm)
     genderVar.set(not runner.playAsFemale)
+    ccVar.set(runner.cc)
+    minesVar.set(runner.mines)
+    cabinsVar.set(runner.cabins)
+    layoutVar.set(runner.layout)
+    seedVar.set(runner.seed)
 
     currentRow = 0
     nameRow = currentRow
@@ -87,13 +105,28 @@ if __name__ == '__main__':
     currentRow += 1
     genderRow = currentRow
     currentRow += 1
+    remixRow = currentRow
+    currentRow += 1
+    cabinsRow = currentRow
+    currentRow += 1
+    seedRow = currentRow
+    currentRow += 1
 
     setupRow(window,"Name:",nameVar,nameRow)
     setupRow(window,"FarmName:",farmVar,farmRow)
     setupRow(window,"Favourite:",favouriteVar,favouriteRow)
-    setupRow(window,"FarmType:",farmTypeVar,farmTypeRow)
+    setupRow(window,"FarmType:",farmTypeVar,farmTypeRow, dropdown = "farmTypes")
     setupRow(window,"Character:",charVar,characterRow)
     setupRow(window,"Male:",genderVar,genderRow,checkBox=True)
+    
+    tk.Label(window, text = "Remix:").grid(column = 0, row = remixRow, sticky = "W")
+    setupRow(window,"CC?:",ccVar,remixRow, labelColumn= 1, checkBox=True)
+    setupRow(window,"Mines?:",minesVar,remixRow, labelColumn = 3, checkBox=True)
+    
+    tk.Label(window, text = "Layout:").grid(column = 0, row = cabinsRow, sticky = "W")
+    setupRow(window,"# Cabins:", cabinsVar, cabinsRow, labelColumn = 1, dropdown = "numberCabins")
+    setupRow(window,"Separate?:", layoutVar, cabinsRow, labelColumn = 3, checkBox=True)
+    setupRow(window,"Seed:",seedVar,seedRow)
 
     def updateRunner():
         runner.name = nameVar.get()
@@ -101,6 +134,12 @@ if __name__ == '__main__':
         runner.favouriteThing = favouriteVar.get()
         runner.farm = farmTypeVar.get()
         runner.playAsFemale = not genderVar.get()
+        runner.cc = ccVar.get()
+        runner.mines = minesVar.get()
+        runner.cabins = cabinsVar.get()
+        runner.layout = cabinsVar.get()
+        runner.seed = seedVar.get() 
+
 
     def generate():
 
@@ -144,25 +183,25 @@ if __name__ == '__main__':
 
 
     button = tk.Button(window, text = "Generate", command = generate)
-    button.grid(column= 0, row = currentRow, columnspan=2)
+    button.grid(column= 0, row = currentRow, columnspan=6)
     currentRow += 1
 
     errors = tk.Label(window, text = "This will trigger an AutoHotKey script.  \nPlease ensure Stardew Valley is running \nand on the character creation screen.")
-    errors.grid(column=0, row = currentRow, columnspan=2)
+    errors.grid(column=0, row = currentRow, columnspan=6)
     
     currentRow += 1
 
     twitchToken = tk.Entry(window, textvariable = twitchVar)
-    twitchToken.grid(column = 2, row = 0)
+    twitchToken.grid(column = 5, row = 0)
 
     #twitchButton = tk.Button(window, text = "Twitch Connect", command = connect)
     #twitchButton.grid(column=2, row = 1)
 
     twitchStatus = tk.Label(window, text = "Disconnected")
-    twitchStatus.grid(column = 2, row = 2)
+    twitchStatus.grid(column = 5, row = 2)
 
     listbox = tk.Listbox(window)
-    listbox.grid(column=2, row = 3, rowspan=10)
+    listbox.grid(column=5, row = 3, rowspan=7)
     listbox.bind("<<ListboxSelect>>", displayEntry)
 
     entries = getSampleEntries()

@@ -30,6 +30,10 @@ def MoveAndType(x,y,text):
 
     return script
 
+def ClickAndDrag(x1,y1,x2,y2):
+    return "MouseClickDrag, Left, {}, {}, {}, {}\n".format(
+        str(x1 + xOffset), str(y1 + yOffset), str(x1 + xOffset + x2), str(y1 + yOffset + y2))
+
 def Type(text):
     return "Send " + text + "\n"
 

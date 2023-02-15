@@ -13,6 +13,15 @@ class Runner():
         self.farm = runnerSettings["FarmType"]
         self.playAsFemale = runnerSettings["PlayAsFemale"]
         self.skipIntro = runnerSettings["SkipIntro"]
+        
+        self.cc = runnerSettings["remixCC"] if "remixCC" in runnerSettings else False
+        self.mines = runnerSettings["remixMines"] if "remixMines" in runnerSettings else False
+        self.cabins = runnerSettings["cabinCount"] if "cabinCount" in runnerSettings else "0"
+        self.layout = runnerSettings["cabinLayout"] if "cabinLayout" in runnerSettings else False
+        self.seed = runnerSettings["Seed"] if "Seed" in runnerSettings else ""
+        
+        self.farmTypeList = ["Standard", "Riverland", "Forest", "Hill-top", "Wilderness", "Four Corners", "Beach"]
+        self.numberCabins = ["0", "1", "2", "3"]
 
     def makeScript(self):
         script = ""
@@ -27,26 +36,42 @@ class Runner():
 
         if self.playAsFemale:
             script += sm.MoveAndClick(206,230)
+            
+        if isinstance(self.farm,int): 
+            offset = self.farm - 1
+        else: 
+            offset = self.farmTypeList.index(self.farm)
 
-        if self.farm == 2:
-            script += sm.MoveAndClick(771,130)
-
-        if self.farm == 3:
-            script += sm.MoveAndClick(771,215)
-
-        if self.farm == 4:
-            script += sm.MoveAndClick(771,300)
-
-        if self.farm == 5:
-            script += sm.MoveAndClick(771,385)
-
-        if self.farm == 6:
-            script += sm.MoveAndClick(771,470)
-
-        if self.farm == 7:
-            script += sm.MoveAndClick(771,555)
+        if offset: 
+            script += sm.MoveAndClick(771,45 + 85*offset)
 
         if self.skipIntro:
             script += sm.MoveAndClick(346,500)
 
+        return script
+    
+    def advancedSettings(self):
+        script = ""
+        script += sm.MoveAndClick(-10,600)
+        
+        if self.cc: 
+            script += sm.ClickAndDrag(206,230,0,40)
+            
+        if self.mines: 
+            script += sm.ClickAndDrag(206,430,0,40)
+            
+        script += sm.MoveAndClick(781,515,7)
+        
+        if self.cabins != "0":
+            script += sm.ClickAndDrag(206, 230, 0, 40*int(self.cabins))
+            
+            if self.layout: 
+                script += sm.ClickAndDrag(206,290,0,40)
+                
+        script += sm.MoveAndClick(236,500)
+        script += "Send {BackSpace 10} \n"
+        
+        if self.seed != "":
+            script += sm.MoveAndType(236,500,self.seed)
+        
         return script
