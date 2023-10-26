@@ -72,6 +72,11 @@ class Runner():
         script += "Send {BackSpace 10} \n"
         
         if self.seed != "":
-            script += sm.MoveAndType(236,500,self.seed)
+            if len(self.seed) <= 9:
+                script += sm.MoveAndType(236,500,self.seed)
+            else:
+                script += "Clipboard := " + self.seed[1:] + " \n"
+                script += sm.Type(self.seed[0])
+                script += "SendInput ^v" + " \n"
         
         return script
