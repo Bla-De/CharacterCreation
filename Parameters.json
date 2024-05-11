@@ -1,18 +1,39 @@
 {
-  "SkinMin": 1,
-  "SkinMax": 24,
-  "HairMin": 1,
-  "HairMax": 74,
-  "ShirtMin": 1,
-  "ShirtMax": 112,
-  "PantsMin": 1,
-  "PantsMax": 4,
-  "AccessoryMin": 1,
-  "AccessoryMax": 20,
+  "1.5": {
+    "SkinMin": 1,
+    "SkinMax": 24,
+    "HairMin": 1,
+    "HairMax": 74,
+    "ShirtMin": 1,
+    "ShirtMax": 112,
+    "PantsMin": 1,
+    "PantsMax": 4,
+    "AccessoryMin": 1,
+    "AccessoryMax": 20,
 
-  "HSLMin": 0,
-  "HSLMax": 99,
+    "HSLMin": 0,
+    "HSLMax": 99,
 
-  "AnimalMin": 1,
-  "AnimalMax": 6
+    "AnimalMin": 1,
+    "AnimalMax": 6
+  },
+
+  "1.6": {
+    "SkinMin": 1,
+    "SkinMax": 24,
+    "HairMin": 1,
+    "HairMax": 74,
+    "ShirtMin": 1,
+    "ShirtMax": 112,
+    "PantsMin": 1,
+    "PantsMax": 4,
+    "AccessoryMin": 1,
+    "AccessoryMax": 31,
+
+    "HSLMin": 0,
+    "HSLMax": 99,
+
+    "AnimalMin": 1,
+    "AnimalMax": 10
+  }
 }

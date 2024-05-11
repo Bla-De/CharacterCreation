@@ -31,7 +31,7 @@ def getSampleEntries():
 
     for entry in defaultCharacters["Entries"]:
 
-        sampleEntries.append(Entry(Character(entry["Character"]),Reward(entry["User"],entry["FavouriteThing"])))
+        sampleEntries.append(Entry(Character(entry["Character"],"1.6"),Reward(entry["User"],entry["FavouriteThing"])))
 
     return sampleEntries
 
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     window.minsize(250,100)
     #mb.showwarning("Warning","This will trigger an AutoHotKey script.  \nPlease ensure Stardew Valley is running and on the character creation screen.")
     
-
+    verVar = tk.StringVar()
     charVar = tk.StringVar()
     nameVar = tk.StringVar()
     farmVar = tk.StringVar()
@@ -78,6 +78,7 @@ if __name__ == '__main__':
     layoutVar = tk.BooleanVar()
     seedVar = tk.StringVar()
 
+    verVar.set("1.6")
     nameVar.set(runner.name)
     farmVar.set(runner.farmName)
     favouriteVar.set(runner.favouriteThing)
@@ -93,6 +94,8 @@ if __name__ == '__main__':
     seedVar.set(runner.seed)
 
     currentRow = 0
+    verRow = currentRow
+    currentRow += 1
     nameRow = currentRow
     currentRow += 1
     farmRow = currentRow
@@ -111,7 +114,8 @@ if __name__ == '__main__':
     currentRow += 1
     seedRow = currentRow
     currentRow += 1
-
+	
+    setupRow(window,"Version:",verVar,verRow)
     setupRow(window,"Name:",nameVar,nameRow)
     setupRow(window,"FarmName:",farmVar,farmRow)
     setupRow(window,"Favourite:",favouriteVar,favouriteRow)
@@ -143,7 +147,7 @@ if __name__ == '__main__':
 
     def generate():
 
-        char = Character(charVar.get())
+        char = Character(charVar.get(),verVar.get())
 
         charErrors = char.validate()
         
