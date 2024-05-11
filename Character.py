@@ -3,9 +3,10 @@ import ScriptMaker as sm
 
 class Character():
         
-    def populate(self,text):
+    def populate(self,text,version):
         if text == "":
             return
+        self.version = version
         row = text.split(',')
         if len(row) >= 1:
             self.skin = int(row[0])
@@ -39,7 +40,7 @@ class Character():
             self.animal = int(row[14])
 
 
-    def __init__(self,text):
+    def __init__(self,text,version):
         self.skin = 1
         self.hair = 1
         self.shirt = 1
@@ -55,13 +56,15 @@ class Character():
         self.pantsS = 0
         self.pantsL = 0
         self.animal = 1
+        self.version = version
 
-        self.populate(text)
+        self.populate(text,version)
 
     def validate(self):
         
         with open('Parameters.json','r') as f:
             parameters = json.load(f)
+        parameters = parameters[self.version]
         #Retuns array of properties that have errored
         error = []
         if not parameters["SkinMin"] <= self.skin <= parameters["SkinMax"]:
@@ -101,6 +104,10 @@ class Character():
         return error
 
     def makeScript(self,female = True):
+		
+        with open('Parameters.json','r') as f:
+            parameters = json.load(f)
+        parameters = parameters[self.version]
         #Assumes validation has passed
         script = ""
         
@@ -111,9 +118,9 @@ class Character():
             script += sm.MoveAndClick(586,215,self.animal-1)
 
         if self.skin > 1:
-            if self.skin > (24 / 2): 
+            if self.skin > (parameters["SkinMax"] / 2): 
                 arrow = leftArrow
-                clicks = 24 - self.skin + 1
+                clicks = parameters["SkinMax"] - self.skin + 1
             else:
                 arrow = rightArrow
                 clicks = self.skin - 1
@@ -121,40 +128,40 @@ class Character():
 
         workingHair = self.hair
         if female:
-            workingHair += 74 - 17
+            workingHair += parameters["HairMax"] - 17
             workingHair = workingHair % 74 + 1
 
         if workingHair > 1:
-            if workingHair > (74 + female*17) / 2 or self.hair < female*17: 
+            if workingHair > (parameters["HairMax"] + female*17) / 2 or self.hair < female*17: 
                 arrow = leftArrow
-                clicks = 74 - workingHair + 1
+                clicks = parameters["HairMax"] - workingHair + 1
             else:
                 arrow = rightArrow
                 clicks = workingHair - 1
             script += sm.MoveAndClick(arrow,360,clicks)
 
         if self.shirt > 1:
-            if self.shirt > (112 / 2):
+            if self.shirt > (parameters["ShirtMax"] / 2):
                 arrow = leftArrow
-                clicks = 112 - self.shirt + 1
+                clicks = parameters["ShirtMax"] - self.shirt + 1
             else:
                 arrow = rightArrow
                 clicks = self.shirt - 1
             script += sm.MoveAndClick(arrow,430,clicks)
 
         if self.pants > 1:
-            if self.pants > (4 / 2): 
+            if self.pants > (parameters["PantsMax"] / 2): 
                 arrow = leftArrow
-                clicks = 4 - self.pants + 1
+                clicks = parameters["PantsMax"] - self.pants + 1
             else: 
                 arrow = rightArrow
                 clicks = self.pants - 1
             script += sm.MoveAndClick(arrow,500,clicks)
 
         if self.acc > 1:
-            if self.acc > (20 / 2):
+            if self.acc > (parameters["AccessoryMax"] / 2):
                 arrow = leftArrow
-                clicks = 20 - self.acc + 1
+                clicks = parameters["AccessoryMax"] - self.acc + 1
             else: 
                 arrow = rightArrow 
                 clicks = self.acc - 1
