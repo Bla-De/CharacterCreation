@@ -49,11 +49,12 @@ def Setup():
     if mouseDelay != None:
         script = "SetMouseDelay " + str(mouseDelay) + "\n"
 
-    script += "SetTitleMatchMode, RegEx\nWinActivate, ^Stardew Valley$\n"
+    script += "SetTitleMatchMode, RegEx\nWinActivate, ^Stardew Valley$\n#SingleInstance force\n"
     return script
 
 def Epilog():
-    script = "Esc::ExitApp"
+    script = "Esc::ExitApp" + "\n"
+    script += "return"
     return script
 
 def Run(script):

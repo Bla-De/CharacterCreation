@@ -1,4 +1,5 @@
 {
+  "Version":  "1.6",
   "Name": "BlaDe",
   "FarmType": 3,
   "FarmName": "Marriage",
@@ -9,6 +10,7 @@
   "WorkingDirectory": "C:\\Temp\\",
   "MouseDelay": 25,
   "PlayAsFemale": false,
-  "SkipIntro": true
+  "SkipIntro": true,
+  "Legacy":  true
 
 }

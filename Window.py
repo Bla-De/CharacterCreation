@@ -77,8 +77,10 @@ if __name__ == '__main__':
     cabinsVar = tk.StringVar()
     layoutVar = tk.BooleanVar()
     seedVar = tk.StringVar()
+    layoutVar = tk.BooleanVar()
+    legacyVar = tk.BooleanVar()
 
-    verVar.set("1.6")
+    verVar.set(runner.version)
     nameVar.set(runner.name)
     farmVar.set(runner.farmName)
     favouriteVar.set(runner.favouriteThing)
@@ -92,6 +94,7 @@ if __name__ == '__main__':
     cabinsVar.set(runner.cabins)
     layoutVar.set(runner.layout)
     seedVar.set(runner.seed)
+    legacyVar.set(runner.legacy)
 
     currentRow = 0
     verRow = currentRow
@@ -114,6 +117,8 @@ if __name__ == '__main__':
     currentRow += 1
     seedRow = currentRow
     currentRow += 1
+    legacyRow = currentRow
+    currentRow += 1
 	
     setupRow(window,"Version:",verVar,verRow)
     setupRow(window,"Name:",nameVar,nameRow)
@@ -131,8 +136,10 @@ if __name__ == '__main__':
     setupRow(window,"# Cabins:", cabinsVar, cabinsRow, labelColumn = 1, dropdown = "numberCabins")
     setupRow(window,"Separate?:", layoutVar, cabinsRow, labelColumn = 3, checkBox=True)
     setupRow(window,"Seed:",seedVar,seedRow)
+    setupRow(window,"Legacy:",legacyVar,legacyRow, checkBox=True)
 
     def updateRunner():
+        runner.version = verVar.get()
         runner.name = nameVar.get()
         runner.farmName = farmVar.get()
         runner.favouriteThing = favouriteVar.get()
@@ -143,6 +150,7 @@ if __name__ == '__main__':
         runner.cabins = cabinsVar.get()
         runner.layout = cabinsVar.get()
         runner.seed = seedVar.get() 
+        runner.legacy = legacyVar.get() 
 
 
     def generate():

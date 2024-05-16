@@ -7,6 +7,7 @@ with open('RunnerSettings.json','r') as f:
 class Runner():
 
     def __init__(self):
+        self.version = runnerSettings["Version"]
         self.name = runnerSettings["Name"]
         self.farmName = runnerSettings["FarmName"]
         self.favouriteThing = runnerSettings["FavouriteThing"]
@@ -20,8 +21,10 @@ class Runner():
         self.layout = runnerSettings["cabinLayout"] if "cabinLayout" in runnerSettings else False
         self.seed = runnerSettings["Seed"] if "Seed" in runnerSettings else ""
         
-        self.farmTypeList = ["Standard", "Riverland", "Forest", "Hill-top", "Wilderness", "Four Corners", "Beach"]
-        self.numberCabins = ["0", "1", "2", "3"]
+        self.farmTypeList = ["Standard", "Riverland", "Forest", "Hill-top", "Wilderness", "Four Corners", "Beach", "Meadowlands"]
+        self.numberCabins = ["0", "1", "2", "3", "4", "5", "6", "7"]
+
+        self.legacy = runnerSettings["Legacy"]
 
     def makeScript(self):
         script = ""
@@ -43,7 +46,12 @@ class Runner():
             offset = self.farmTypeList.index(self.farm)
 
         if offset: 
-            script += sm.MoveAndClick(771,45 + 85*offset)
+            horizontalOffset = 1
+            if self.version == "1.6":
+                horizontalOffset = offset // 6 + 1
+                offset = offset % 6
+
+            script += sm.MoveAndClick(671 + 100 * horizontalOffset,45 + 85*offset)
 
         if self.skipIntro:
             script += sm.MoveAndClick(346,500)
@@ -51,6 +59,8 @@ class Runner():
         return script
     
     def advancedSettings(self):
+        if self.version != "1.5" and self.version != "1.6":
+            return ""
         script = ""
         script += sm.MoveAndClick(-10,600)
         
@@ -78,5 +88,11 @@ class Runner():
                 script += "Clipboard := " + self.seed[1:] + " \n"
                 script += sm.Type(self.seed[0])
                 script += "SendInput ^v" + " \n"
+
+        if self.legacy:
+            script += sm.MoveAndClick(781,515,1)
+            script += sm.MoveAndClick(16,500)
+            script += sm.MoveAndClick(236,430)
+
         
         return script
