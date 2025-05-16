@@ -1,5 +1,6 @@
 import json
 import ScriptMaker as sm
+from packaging.version import Version
 
 with open('RunnerSettings.json','r') as f:
     runnerSettings = json.load(f)
@@ -7,7 +8,7 @@ with open('RunnerSettings.json','r') as f:
 class Runner():
 
     def __init__(self):
-        self.version = runnerSettings["Version"]
+        self.version = Version(runnerSettings["Version"])
         self.name = runnerSettings["Name"]
         self.farmName = runnerSettings["FarmName"]
         self.favouriteThing = runnerSettings["FavouriteThing"]
@@ -47,7 +48,7 @@ class Runner():
 
         if offset: 
             horizontalOffset = 1
-            if self.version == "1.6":
+            if self.version >= Version("1.6"):
                 horizontalOffset = offset // 6 + 1
                 offset = offset % 6
 
@@ -59,40 +60,44 @@ class Runner():
         return script
     
     def advancedSettings(self):
-        if self.version != "1.5" and self.version != "1.6":
+        if self.version < Version("1.5"):
             return ""
+
+        offset = 0;
+        if self.version >= Version("1.6.9"):
+            offset = -24
         script = ""
-        script += sm.MoveAndClick(-10,600)
+        script += sm.MoveAndClick(-10,600+offset)
         
         if self.cc: 
-            script += sm.ClickAndDrag(206,230,0,40)
+            script += sm.ClickAndDrag(206,230+offset,0,40)
             
         if self.mines: 
-            script += sm.ClickAndDrag(206,430,0,40)
+            script += sm.ClickAndDrag(206,430+offset,0,40)
             
-        script += sm.MoveAndClick(781,515,7)
+        script += sm.MoveAndClick(781,515+offset,7)
         
         if self.cabins != "0":
-            script += sm.ClickAndDrag(206, 230, 0, 40*int(self.cabins))
+            script += sm.ClickAndDrag(206, 230+offset, 0, 40*int(self.cabins))
             
             if self.layout: 
-                script += sm.ClickAndDrag(206,290,0,40)
+                script += sm.ClickAndDrag(206,290+offset,0,40)
                 
-        script += sm.MoveAndClick(236,500)
+        script += sm.MoveAndClick(236,500+offset)
         script += "Send {BackSpace 10} \n"
         
         if self.seed != "":
             if len(self.seed) <= 9:
-                script += sm.MoveAndType(236,500,self.seed)
+                script += sm.MoveAndType(236,500+offset,self.seed)
             else:
                 script += "Clipboard := " + self.seed[1:] + " \n"
                 script += sm.Type(self.seed[0])
                 script += "SendInput ^v" + " \n"
 
         if self.legacy:
-            script += sm.MoveAndClick(781,515,1)
-            script += sm.MoveAndClick(16,500)
-            script += sm.MoveAndClick(236,430)
+            script += sm.MoveAndClick(781,515+offset,1)
+            script += sm.MoveAndClick(16,500+offset)
+            script += sm.MoveAndClick(236,430+offset)
 
         
         return script

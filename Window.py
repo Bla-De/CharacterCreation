@@ -9,6 +9,7 @@ from Reward import Reward
 #import TwitchEventHandler
 import threading
 import json
+from packaging.version import Version
 
 runner = Runner()
 runner.playAsFemale = True
@@ -139,7 +140,7 @@ if __name__ == '__main__':
     setupRow(window,"Legacy:",legacyVar,legacyRow, checkBox=True)
 
     def updateRunner():
-        runner.version = verVar.get()
+        runner.version = Version(verVar.get())
         runner.name = nameVar.get()
         runner.farmName = farmVar.get()
         runner.favouriteThing = favouriteVar.get()

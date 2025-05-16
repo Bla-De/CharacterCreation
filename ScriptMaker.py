@@ -1,11 +1,17 @@
 import os
 import json
+from packaging.version import Version
 
 with open('RunnerSettings.json','r') as f:
     runnerSettings = json.load(f)
 
 xOffset = int(runnerSettings["HorizontalResolution"]) // 2 - 356
 yOffset = int(runnerSettings["VerticalResolution"]) // 2 - 300
+
+version169 = Version("1.6.9")
+version = Version(runnerSettings["Version"])
+if version >= version169:
+	yOffset += 24
 
 def Extra():
     return "Sleep 1\n"
